@@ -54,12 +54,15 @@ st.altair_chart(chart2, use_container_width=True)
 # Affichage de la saisie utilisateur pour le nombre de lignes à exporter
 nrows = st.number_input('Nombre de lignes à exporter', min_value=1, value=50, step=1)
 
-# Fonction d'export des données
-def export_data(nrows):
-    data_export = df.iloc[:, 4:].head(nrows)
-    data_export.to_csv('collect_data_export.csv', index=False)
-    st.success(f'Export de {nrows} lignes effectué avec succès !')
+# Créer un sous-ensemble de données à exporter
+subset_data = df.iloc[:, 4:]
 
-# Bouton d'export des données
-if st.button('Exporter les données'):
-    export_data(nrows)
+# Fonction pour exporter les données
+def download_csv(data):
+    csv_file = subset_data.head(nrows).to_csv(index=False, sep=';')
+    href = f'<a href="data:file/csv" download="collect_data.csv">Télécharger les données CSV</a>'
+    st.markdown(href, unsafe_allow_html=True)
+
+# Créer un bouton pour télécharger les données CSV
+if st.button('Télécharger les données CSV'):
+    download_csv(subset_data)
