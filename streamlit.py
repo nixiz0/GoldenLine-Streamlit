@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import altair as alt
 
-df = pd.read_csv('../DataAnalyse/dataset_generate/concat_client_collect.csv')
+df = pd.read_csv('concat_client_collect.csv')
 
 # Création du titre de la page :
 st.title("Visualisation des dépenses par catégorie en fonction de la catégorie socioprofessionnelle")
