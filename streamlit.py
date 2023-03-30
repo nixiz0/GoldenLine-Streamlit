@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import altair as alt
+import base64
 
 df = pd.read_csv('concat_client_collect.csv')
 
@@ -60,7 +61,8 @@ subset_data = df.iloc[:, 4:]
 # Fonction pour exporter les données
 def download_csv(data):
     csv_file = subset_data.head(nrows).to_csv(index=False, sep=';')
-    href = f'<a href="data:file/csv" download="collect_data.csv">Télécharger les données CSV</a>'
+    b64 = base64.b64encode(csv_file.encode()).decode()
+    href = f'<a href="data:file/csv;base64,{b64}" download="collect_data.csv">Télécharger les données CSV</a>'
     st.markdown(href, unsafe_allow_html=True)
 
 # Créer un bouton pour télécharger les données CSV
